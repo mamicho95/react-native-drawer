@@ -1,9 +1,9 @@
 import { Text, StyleSheet, View } from "react-native";
 
-export function Inicio() {
+export function Acercade() {
   return (
     <View style={styles.container}>
-      <Text>Inicio</Text>
+      <Text>Acercade</Text>
     </View>
   );
 }

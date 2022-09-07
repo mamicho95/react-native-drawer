@@ -1,38 +1,31 @@
 import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from "@react-navigation/drawer";
-import { COLORS } from "./Constants/Colors";
-import { NavigationContainer } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
-import { DailyTasks } from "./pages/DailyTasks";
-import { OrganizeWeek } from "./pages/OrganizeWeek";
-import { AddTaskModal } from "./components/OrganizeWeek/ModalAdd";
-import { UpdateTaskModal } from "./components/OrganizeWeek/ModalUpdate";
-import { useEffect } from "react";
-import { openDatabase, createTables } from "./utils/db";
 import { Icon } from "react-native-elements";
+import { NavigationContainer } from "@react-navigation/native";
+import { COLORS } from "./Constants/Colors";
+import { Contacto } from "./pages/Contacto";
+import { Acercade } from "./pages/Acercade";
+import { Inicio } from "./pages/Inicio";
+
 
 const Menu = createDrawerNavigator();
 
 export default function App() {
-  const db = openDatabase();
-  useEffect(function () {
-    createTables(db);
-  }, []);
   return (
     <NavigationContainer>
       <StatusBar style="light" backgroundColor={COLORS.menubar} />
       <Menu.Navigator
         drawerContent={(props) => <MenuItems {...props} />}
-        initialRouteName="Tareas Diarias"
-        screenOptions={{ headerShown: false }}
+        initialRouteName="Inicio"
+        screenOptions={{ headerShown: true }}
       >
-        <Menu.Screen name="Tareas Diarias" component={DailyTasks} />
-        <Menu.Screen name="Organizar Semana" component={OrganizeWeek} />
-        <Menu.Screen name="Nueva Tarea" component={AddTaskModal} />
-        <Menu.Screen name="Editar Tarea" component={UpdateTaskModal} />
+        <Menu.Screen name="Inicio" component={Inicio} />
+        <Menu.Screen name="Contacto" component={Contacto} />
+        <Menu.Screen name="Acercade" component={Acercade} />
       </Menu.Navigator>
     </NavigationContainer>
   );
@@ -70,14 +63,19 @@ const MenuItems = ({ navigation }) => {
       </View>
       <View style={styles.itemsContainer}>
         <MenuButtonItem
-          title={"Dia"}
+          title={"Inicio"}
           icon={"sunny-outline"}
-          screen={() => navigation.navigate("Tareas Diarias")}
+          screen={() => navigation.navigate("Inicio")}
         />
         <MenuButtonItem
-          title={"Tareas"}
+          title={"Contacto"}
           icon={"alarm-outline"}
-          screen={() => navigation.navigate("Organizar Semana")}
+          screen={() => navigation.navigate("Contacto")}
+        />
+        <MenuButtonItem
+          title={"Acercade"}
+          icon={"alarm-outline"}
+          screen={() => navigation.navigate("Acercade")}
         />
       </View>
     </DrawerContentScrollView>
